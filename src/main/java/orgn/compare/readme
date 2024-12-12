@@ -1,0 +1,62 @@
+/***
+ * both comparable and comparator are interfaces which are used to sort
+ * but there are differences
+ * 1. comparator can do more complex sort like sort customer based on id and then names
+ * 2. Comparator need not be implemented in the same class they can supplied externally
+ */
+
+ Certainly! Let's delve deeper into the differences between Comparable and Comparator by exploring scenarios where Comparator provides flexibility that Comparable does not.
+
+ 1. Multiple Sorting Criteria:
+
+ With Comparator, you can define multiple sorting criteria for objects, which is not directly achievable with Comparable. For example, suppose you have a Person class with attributes name, age, and height, and you want to sort Person objects first by age, then by height. You can create a Comparator to achieve this:
+
+ java
+ Copy code
+ import java.util.Comparator;
+
+ public class PersonComparator implements Comparator<Person> {
+     @Override
+     public int compare(Person person1, Person person2) {
+         int result = Integer.compare(person1.getAge(), person2.getAge());
+         if (result == 0) {
+             result = Double.compare(person1.getHeight(), person2.getHeight());
+         }
+         return result;
+     }
+ }
+ Now, you can sort Person objects based on age and height:
+
+ java
+ Copy code
+ List<Person> people = new ArrayList<>();
+ // Add some Person objects to the list
+
+ Collections.sort(people, new PersonComparator());
+ Achieving such multi-criteria sorting directly using Comparable within the Person class would be cumbersome and less intuitive.
+
+ 2. Sorting External Classes:
+
+ With Comparator, you can define sorting logic for classes that you don't have control over or can't modify. This is useful when you want to sort objects from classes that you cannot modify to implement Comparable. For instance, suppose you have a Car class from a third-party library, and you want to sort Car objects by their model names. You can create a Comparator without modifying the Car class:
+
+ java
+ Copy code
+ import java.util.Comparator;
+
+ public class CarComparator implements Comparator<Car> {
+     @Override
+     public int compare(Car car1, Car car2) {
+         return car1.getModel().compareTo(car2.getModel());
+     }
+ }
+ Now, you can sort Car objects based on their model names:
+
+ java
+ Copy code
+ List<Car> cars = new ArrayList<>();
+ // Add some Car objects to the list
+
+ Collections.sort(cars, new CarComparator());
+ In contrast, implementing Comparable would require modifying the Car class, which might not always be feasible or desirable.
+
+ These examples illustrate scenarios where Comparator offers flexibility and control over sorting that Comparable does not provide directly.
