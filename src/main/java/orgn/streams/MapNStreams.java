@@ -12,6 +12,21 @@ public class MapNStreams {
         map.put(5,"wam");
         map.put(20,"pam");
 
+        //take the map values and sort them to a list
+
+        List<String> motul = map.entrySet()
+                        .stream().sorted(new Comparator<Map.Entry<Integer, String>>() {
+                    @Override
+                    public int compare(Map.Entry<Integer, String> o1, Map.Entry<Integer, String> o2) {
+                        if(o1.getKey()>o2.getKey()) {
+                            return 1;
+                        }
+                        return -1;
+                    }
+                }).map(Map.Entry::getValue).collect(Collectors.toList());
+
+        System.out.println(motul);
+
 
         //iterate over the map and just print the key
 
