@@ -10,7 +10,6 @@ public class CompletableSupplyAsync {
                     return 2;
                 });
 
-        completableFuture.join();
         System.out.println(completableFuture.get());
     }
 }

@@ -9,7 +9,6 @@ public class CompletableRunAsync {
                 CompletableFuture.runAsync(()->{
                     System.out.println("Running inside the completable future");
                 });
-        completableFuture.join();
         completableFuture.get();
     }
 }
